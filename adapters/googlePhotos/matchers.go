@@ -67,6 +67,11 @@ func matchEditedName(jsonName string, fileName string, sm filetypes.SupportedMed
 	}
 	base := strings.TrimSuffix(jsonName, path.Ext(jsonName))
 	ext := path.Ext(base)
+	// <<< hack. or explain? >>>
+	if !sm.IsMedia(ext) {
+		base = strings.TrimSuffix(base, path.Ext(base))
+		ext = path.Ext(base)
+	}
 	if ext != "" && sm.IsMedia(ext) {
 		base = strings.TrimSuffix(base, ext)
 		fname := strings.TrimSuffix(fileName, path.Ext(fileName))
